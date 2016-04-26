@@ -1,0 +1,24 @@
+# Berger-Sehgal coherent pion production by neutrinos
+# Data digitized from: PRD 79, 05003 (2009)
+# Data digitized using: http://arohatgi.info/WebPlotDigitizer/
+# CC production with the "BS hadronic model" - plot on page 4,
+# Figure 3b (solid line)
+# energy (GeV), cross secion (per cm^2)
+0.4292, 3.320e-41
+0.5134, 1.141e-40
+0.5850, 1.805e-40
+0.6804, 2.697e-40
+0.7615, 3.444e-40
+0.8282, 4.025e-40
+0.9252, 4.896e-40
+1.019, 5.685e-40
+1.100, 6.390e-40
+1.192, 7.137e-40
+1.262, 7.718e-40
+1.369, 8.589e-40
+1.467, 9.336e-40
+1.590, 1.027e-39
+1.714, 1.120e-39
+1.798, 1.178e-39
+1.903, 1.253e-39
+1.989, 1.313e-39
