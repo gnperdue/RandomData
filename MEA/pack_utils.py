@@ -28,7 +28,11 @@ def clean_nas_by_field(df, field='Price'):
 
 
 def drop_comment_columns(df, list_of_columns=COMMENT_COLUMNS):
-    df = df.drop(columns=list_of_columns)
+    for col in list_of_columns:
+        try:
+            df = df.drop(columns=[col])
+        except ValueError:
+            pass
     return df
 
 
