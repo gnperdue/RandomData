@@ -42,8 +42,11 @@ def make_pricing_model_starter(list_of_csvfiles, purch_type='Credits'):
     df = drop_comment_columns(df)
     exclude_list = PM_EXCLUDE_PACK_TYPES + BASIC_PACK_TYPES
     df = df[~df['Pack'].isin(exclude_list)]
-    df = df[df['AP/Creds'] == purch_type]
-    # df['Price'][df['AP/Creds'] == 'AP'] *= AP_CREDS_CONV
+    try:
+        df = df[df['AP/Creds'] == purch_type]
+        # df['Price'][df['AP/Creds'] == 'AP'] *= AP_CREDS_CONV
+    except KeyError:
+        pass
     return df
 
 
