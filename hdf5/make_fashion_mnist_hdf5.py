@@ -6,6 +6,8 @@ import h5py
 import os
 from tensorflow import keras
 
+nhwc = False
+
 
 def fill_hdf5(file_name, images, labels):
     f = h5py.File(file_name, 'w')
@@ -26,9 +28,15 @@ fashion_mnist = keras.datasets.fashion_mnist
     fashion_mnist.load_data()
 
 test_labels = np.expand_dims(test_labels, -1)
-test_images = np.expand_dims(test_images, -1)
 train_labels = np.expand_dims(train_labels, -1)
-train_images = np.expand_dims(train_images, -1)
+if nhwc:
+    # N, H, W, C
+    test_images = np.expand_dims(test_images, -1)
+    train_images = np.expand_dims(train_images, -1)
+else:
+    # N, C, H, W
+    test_images = np.expand_dims(test_images, 1)
+    train_images = np.expand_dims(train_images, 1)
 
 hdf5_train = 'fashion_train.hdf5'
 hdf5_test = 'fashion_test.hdf5'
