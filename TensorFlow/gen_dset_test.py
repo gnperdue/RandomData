@@ -1,27 +1,29 @@
 import tensorflow as tf
 
 
-def make_batch_generator_fn(batch_size=10, dset_size=100):
+def make_batch_generator_fn(dset_size=100):
     feats, targs = range(dset_size), range(1, dset_size + 1)
 
     def batch_generator_fn():
-        start_idx, stop_idx = 0, batch_size
+        idx = 0
         while True:
-            if stop_idx > dset_size:
+            if idx >= dset_size:
                 return
-            yield feats[start_idx: stop_idx], targs[start_idx: stop_idx]
-            start_idx, stop_idx = start_idx + batch_size, stop_idx + batch_size
+            yield feats[idx], targs[idx]
+            idx += 1
 
     return batch_generator_fn
 
 
-def test(batch_size=10):
-    dgen = make_batch_generator_fn(batch_size)
-    features_shape, targets_shape = [None], [None]
+def test():
+    dgen = make_batch_generator_fn()
+    features_shape, targets_shape = (), ()
     ds = tf.data.Dataset.from_generator(
         dgen, (tf.int32, tf.int32),
         (tf.TensorShape(features_shape), tf.TensorShape(targets_shape))
     )
+    ds = ds.shuffle(20)
+    ds = ds.batch(10)
     feats, targs = ds.make_one_shot_iterator().get_next()
 
     with tf.Session() as sess:
@@ -29,7 +31,8 @@ def test(batch_size=10):
         try:
             while True:
                 f, t = sess.run([feats, targs])
-                print(f, t)
+                print(f.shape, t.shape)
+                print(f.reshape(-1,), t.reshape(-1,))
                 counter += 1
                 if counter > 15:
                     break
