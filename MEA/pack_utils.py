@@ -33,6 +33,8 @@ def drop_comment_columns(df, list_of_columns=COMMENT_COLUMNS):
             df = df.drop(columns=[col])
         except ValueError:
             pass
+        except KeyError:
+            pass
     return df
 
 
@@ -72,7 +74,7 @@ def convert_ap_to_creds(df):
     new_df = df.copy()
     new_df['Price'][new_df['AP/Creds'] == 'AP'] *= AP_CREDS_CONV
     return new_df
-    
+
 
 def test_one_by_one():
     print('Basic packs:')
